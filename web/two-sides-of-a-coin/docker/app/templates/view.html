@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Bulletin Board</title>
+</head>
+
+<body>
+    <h1>
+        {{ data.title }}
+    </h1>
+    <p>
+        {{ data.text }}
+    </p>
+    {% if data.text_extra %}
+    <p>
+        {{ data.text_extra }}
+    </p>
+    {% endif %}
+    {% if data.url_viewer %}
+    <p>
+        <a href="{{ data.url_viewer }}">See as guest</a>
+    </p>
+    {% endif %}
+    <font color="lightgray">Posted at {{ data.posted_at }}</font>
+</body>
+
+</html>

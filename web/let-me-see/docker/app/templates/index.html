@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <h1>
+            Let me see your URL
+        </h1>
+        <p>
+            <form action="/" method="GET">
+                URL: 
+                <input name="url">
+                <input type="submit">
+            </form>
+        </p>
+        <p>
+            <pre>
+{{ content }}
+            </pre>
+        </p>
+        <p>
+            <font color="lightgray">
+                Your IP address is {{ ip }}.{{ info }}
+            </font>
+        </p>
+
+        <!-- Flag is at /flag.txt -->
+
+    </body>
+</html>

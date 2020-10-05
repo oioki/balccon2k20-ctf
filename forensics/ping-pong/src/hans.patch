@@ -1,0 +1,46 @@
+diff --git a/src/server.cpp b/src/server.cpp
+index d427bd9..4ce9f00 100644
+--- a/src/server.cpp
++++ b/src/server.cpp
+@@ -31,7 +31,9 @@ using std::string;
+ using std::cout;
+ using std::endl;
+ 
+-#define FIRST_ASSIGNED_IP_OFFSET 100
++#define FIRST_ASSIGNED_IP_OFFSET 2
++#define SUBNETS 2
++#define MAX_IP_OFFSET (256 * SUBNETS - 1)
+ 
+ const Worker::TunnelHeader::Magic Server::magic("hans");
+ 
+@@ -241,7 +243,7 @@ Server::ClientData *Server::getClientByRealIp(uint32_t ip)
+ 
+ void Server::handleTunData(int dataLength, uint32_t, uint32_t destIp)
+ {
+-    if (destIp == network + 255) // ignore broadcasts
++    if (destIp == network + MAX_IP_OFFSET) // ignore broadcasts
+         return;
+ 
+     ClientData *client = getClientByTunnelIp(destIp);
+@@ -337,7 +339,7 @@ void Server::handleTimeout()
+ 
+ uint32_t Server::reserveTunnelIp(uint32_t desiredIp)
+ {
+-    if (desiredIp > network + 1 && desiredIp < network + 255 && !usedIps.count(desiredIp))
++    if (desiredIp > network + 1 && desiredIp < network + MAX_IP_OFFSET && !usedIps.count(desiredIp))
+     {
+         usedIps.insert(desiredIp);
+         return desiredIp;
+@@ -345,10 +347,10 @@ uint32_t Server::reserveTunnelIp(uint32_t desiredIp)
+ 
+     bool ipAvailable = false;
+ 
+-    for (int i = 0; i < 255 - FIRST_ASSIGNED_IP_OFFSET; i++)
++    for (int i = 0; i < MAX_IP_OFFSET - FIRST_ASSIGNED_IP_OFFSET; i++)
+     {
+         latestAssignedIpOffset++;
+-        if (latestAssignedIpOffset == 255)
++        if (latestAssignedIpOffset == MAX_IP_OFFSET)
+             latestAssignedIpOffset = FIRST_ASSIGNED_IP_OFFSET;
+ 
+         if (!usedIps.count(network + latestAssignedIpOffset))

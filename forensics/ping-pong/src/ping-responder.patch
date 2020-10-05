@@ -1,0 +1,13 @@
+diff --git a/src/ping-responder.py b/src/ping-responder.py
+index 844fdbd..62e0fa0 100755
+--- a/src/ping-responder.py
++++ b/src/ping-responder.py
+@@ -123,7 +123,7 @@ def send_icmp_echo_reply(raw_socket, request_packet, payload_bytes=None, trigger
+         else:
+             log.debug("Request %d/%d payload: '%s'", req_icmp.id, req_icmp.seq, snippet)
+ 
+-    if trigger_bytes is not None and request_load != trigger_bytes:
++    if trigger_bytes is not None and trigger_bytes not in request_load:
+         log.info("Ignoring ICMP echo-request from %s without trigger payload." % req_ip.src)
+         return
+ 

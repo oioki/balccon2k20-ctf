@@ -1,0 +1,1 @@
+BCTF{tricky_curl_redirect_to_file_protocol}

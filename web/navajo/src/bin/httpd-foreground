@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+server_status_refresher.py &
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /usr/local/apache2/logs/httpd.pid
+
+exec httpd -DFOREGROUND "$@"

@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Bulletin Board</title>
+</head>
+
+<body>
+    <h1>
+        Bulletin Board
+    </h1>
+    {% for item in data %}
+    <p>
+        <a href="/view/{{ item.id }}">{{ item.title }}</a>
+    </p>
+    {% endfor %}
+    {% if not readonly %}
+    <p>
+        <a href="/add">NEW ADVERTISEMENT</a>
+    </p>
+    {% endif %}
+</body>
+
+</html>
